@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator Pro - Premium Multi-Mode Calculator</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+<style>
+/* --- CSS: /styles.css --- */
+/* Custom Premium Styling & Theme Variables */
+
+:root {
+  --bg-primary: #020617;
+  --bg-secondary: #0f172a;
+  --border-color: #1e293b;
+  --accent-color: #6366f1;
+  --accent-hover: #4f46e5;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+}
+
+/* Custom Scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.15);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(148, 163, 184, 0.3);
+}
+
+.custom-scrollbar-thin::-webkit-scrollbar {
+  height: 4px;
+}
+.custom-scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.1);
+  border-radius: 10px;
+}
+
+/* Premium Button Styles */
+.btn-digit {
+  background-color: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(51, 65, 85, 0.4);
+  color: #f1f5f9;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 1.125rem;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-digit:hover {
+  background-color: rgba(30, 41, 59, 0.7);
+  border-color: rgba(148, 163, 184, 0.3);
+  transform: translateY(-1px);
+}
+.btn-digit:active {
+  transform: translateY(1px);
+}
+
+.btn-operator {
+  background-color: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: #818cf8;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 1.25rem;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-operator:hover {
+  background-color: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-1px);
+}
+.btn-operator:active {
+  transform: translateY(1px);
+}
+
+.btn-action {
+  background-color: rgba(71, 85, 105, 0.2);
+  border: 1px solid rgba(71, 85, 105, 0.3);
+  color: #cbd5e1;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 1.125rem;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-action:hover {
+  background-color: rgba(71, 85, 105, 0.35);
+  border-color: rgba(148, 163, 184, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #f87171;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 1.125rem;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-danger:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-equals {
+  background-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  background-color: #6366f1;
+  border: 1px solid rgba(99, 102, 241, 0.5);
+  color: #ffffff;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 1rem 0;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-equals:hover {
+  background-color: #4f46e5;
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-mem {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.5rem 0;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease;
+}
+.btn-mem:hover {
+  color: #f1f5f9;
+  background-color: rgba(30, 41, 59, 0.3);
+}
+
+.btn-sci {
+  background-color: rgba(30, 41, 59, 0.25);
+  border: 1px solid rgba(51, 65, 85, 0.25);
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.75rem 0;
+  border-radius: 0.75rem;
+  transition: all 0.15s ease;
+}
+.btn-sci:hover {
+  background-color: rgba(30, 41, 59, 0.5);
+  color: #f1f5f9;
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.btn-prog-hex {
+  background-color: rgba(30, 41, 59, 0.2);
+  border: 1px solid rgba(51, 65, 85, 0.2);
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.75rem 0;
+  border-radius: 0.75rem;
+  transition: all 0.15s ease;
+}
+.btn-prog-hex:not(:disabled):hover {
+  background-color: rgba(30, 41, 59, 0.5);
+  color: #f1f5f9;
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.btn-conv-cat {
+  padding: 0.5rem 0;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+.btn-conv-cat.active {
+  background-color: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+}
+.btn-conv-cat:not(.active):hover {
+  color: #cbd5e1;
+  background-color: rgba(30, 41, 59, 0.3);
+}
+
+/* Theme Customizations */
+/* Cyberpunk Neon */
+body.theme-cyberpunk {
+  background-color: #05050a;
+}
+body.theme-cyberpunk .btn-digit {
+  background-color: rgba(244, 63, 94, 0.05);
+  border-color: rgba(244, 63, 94, 0.15);
+  color: #fda4af;
+}
+body.theme-cyberpunk .btn-digit:hover {
+  background-color: rgba(244, 63, 94, 0.15);
+  border-color: rgba(244, 63, 94, 0.3);
+}
+body.theme-cyberpunk .btn-operator {
+  background-color: rgba(234, 179, 8, 0.05);
+  border-color: rgba(234, 179, 8, 0.2);
+  color: #fef08a;
+}
+body.theme-cyberpunk .btn-operator:hover {
+  background-color: rgba(234, 179, 8, 0.15);
+}
+body.theme-cyberpunk .btn-equals {
+  background-color: #eab308;
+  color: #000000;
+  box-shadow: 0 4px 14px rgba(234, 179, 8, 0.4);
+}
+body.theme-cyberpunk .btn-equals:hover {
+  background-color: #ca8a04;
+}
+
+/* Nordic Frost */
+body.theme-nordic {
+  background-color: #0f172a;
+}
+body.theme-nordic .btn-digit {
+  background-color: rgba(203, 213, 225, 0.05);
+  border-color: rgba(203, 213, 225, 0.1);
+  color: #e2e8f0;
+}
+body.theme-nordic .btn-operator {
+  background-color: rgba(14, 165, 233, 0.1);
+  border-color: rgba(14, 165, 233, 0.2);
+  color: #38bdf8;
+}
+body.theme-nordic .btn-equals {
+  background-color: #0ea5e9;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+/* Sunset Rose */
+body.theme-sunset {
+  background-color: #180b12;
+}
+body.theme-sunset .btn-digit {
+  background-color: rgba(244, 63, 94, 0.05);
+  border-color: rgba(244, 63, 94, 0.1);
+  color: #fecdd3;
+}
+body.theme-sunset .btn-operator {
+  background-color: rgba(249, 115, 22, 0.1);
+  border-color: rgba(249, 115, 22, 0.2);
+  color: #fdba74;
+}
+body.theme-sunset .btn-equals {
+  background-color: #f43f5e;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+}
+
+/* Emerald Forest */
+body.theme-emerald {
+  background-color: #022c22;
+}
+body.theme-emerald .btn-digit {
+  background-color: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.1);
+  color: #a7f3d0;
+}
+body.theme-emerald .btn-operator {
+  background-color: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.25);
+  color: #34d399;
+}
+body.theme-emerald .btn-equals {
+  background-color: #10b981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+</style></head>
+<body class="h-full bg-slate-950 text-slate-100 font-sans overflow-hidden transition-colors duration-300">
+
+  <div class="flex h-full w-full overflow-hidden">
+    
+    <!-- SIDEBAR: Mode Selector -->
+    <aside id="sidebar" class="w-64 bg-slate-900/90 border-r border-slate-800 flex flex-col justify-between transition-all duration-300 z-30 md:relative absolute inset-y-0 left-0 -translate-x-full md:translate-x-0">
+      <div class="p-6">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="p-2 bg-indigo-600 rounded-xl shadow-lg shadow-indigo-500/30">
+            <i data-lucide="calculator" class="w-6 h-6 text-white"></i>
+          </div>
+          <div>
+            <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">CALC PRO</h1>
+            <span class="text-xs text-slate-400 font-medium tracking-wider uppercase">Premium Edition</span>
+          </div>
+        </div>
+
+        <nav class="space-y-1.5">
+          <button onclick="switchMode('standard')" id="btn-mode-standard" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 bg-indigo-600/10 text-indigo-400 border border-indigo-500/20">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i> Standard
+          </button>
+          <button onclick="switchMode('scientific')" id="btn-mode-scientific" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 transition-all duration-200">
+            <i data-lucide="atom" class="w-4 h-4"></i> Scientific
+          </button>
+          <button onclick="switchMode('programmer')" id="btn-mode-programmer" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 transition-all duration-200">
+            <i data-lucide="binary" class="w-4 h-4"></i> Programmer
+          </button>
+          <button onclick="switchMode('financial')" id="btn-mode-financial" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 transition-all duration-200">
+            <i data-lucide="badge-dollar-sign" class="w-4 h-4"></i> Financial (Loan)
+          </button>
+          <button onclick="switchMode('converter')" id="btn-mode-converter" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 transition-all duration-200">
+            <i data-lucide="refresh-cw" class="w-4 h-4"></i> Unit Converter
+          </button>
+        </nav>
+      </div>
+
+      <!-- Sidebar Footer / Settings -->
+      <div class="p-6 border-t border-slate-800 bg-slate-950/40 space-y-4">
+        <!-- Sound Settings -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Key Sounds</span>
+            <button id="sound-toggle" onclick="toggleSound()" class="text-indigo-400 hover:text-indigo-300 text-xs flex items-center gap-1">
+              <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> <span id="sound-status-text">Mechanical</span>
+            </button>
+          </div>
+          <div class="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+            <button onclick="setSoundType('mechanical')" id="sound-btn-mechanical" class="text-[10px] py-1 rounded font-medium bg-slate-800 text-white">Mech</button>
+            <button onclick="setSoundType('soft')" id="sound-btn-soft" class="text-[10px] py-1 rounded font-medium text-slate-400 hover:text-white">Soft</button>
+            <button onclick="setSoundType('off')" id="sound-btn-off" class="text-[10px] py-1 rounded font-medium text-slate-400 hover:text-white">Off</button>
+          </div>
+        </div>
+
+        <!-- Theme Selector -->
+        <div>
+          <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">Premium Theme</label>
+          <select id="theme-select" onchange="changeTheme(this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-indigo-500 cursor-pointer">
+            <option value="obsidian">Midnight Obsidian</option>
+            <option value="cyberpunk">Cyberpunk Neon</option>
+            <option value="nordic">Nordic Frost</option>
+            <option value="sunset">Sunset Rose</option>
+            <option value="emerald">Emerald Forest</option>
+          </select>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-20 hidden md:hidden"></div>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden bg-slate-950 relative">
+      
+      <!-- Top Header Bar -->
+      <header class="h-16 border-b border-slate-800/80 px-6 flex items-center justify-between bg-slate-900/40 backdrop-blur-md z-10">
+        <div class="flex items-center gap-4">
+          <button onclick="toggleMobileSidebar()" class="md:hidden p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+          <h2 id="current-mode-title" class="font-semibold text-slate-200 flex items-center gap-2">
+            <i data-lucide="layout-grid" class="w-5 h-5 text-indigo-400"></i> Standard Calculator
+          </h2>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Memory Indicator -->
+          <div id="memory-indicator" class="hidden px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold tracking-wide">
+            M = <span id="memory-val">0</span>
+          </div>
+          <!-- Toggle History Panel (Desktop) -->
+          <button onclick="toggleHistoryPanel()" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors relative" title="Toggle History Tape">
+            <i data-lucide="history" class="w-5 h-5"></i>
+            <span id="history-badge" class="absolute top-1 right-1 w-2 h-2 bg-indigo-500 rounded-full hidden"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Workspace Container -->
+      <div class="flex-1 flex overflow-hidden relative">
+        
+        <!-- CALCULATOR INTERFACE -->
+        <div class="flex-1 flex flex-col justify-between p-6 max-w-4xl mx-auto w-full overflow-y-auto custom-scrollbar">
+          
+          <!-- DISPLAY PANEL -->
+          <div class="bg-slate-900/50 border border-slate-800/80 rounded-2xl p-6 mb-6 flex flex-col justify-end items-end min-h-[140px] shadow-inner relative overflow-hidden group">
+            <!-- Decorative background glow -->
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl group-hover:bg-indigo-500/10 transition-all duration-500"></div>
+            
+            <!-- Formula / Expression Line -->
+            <div id="calc-expression" class="text-slate-400 text-right text-lg font-mono tracking-wide min-h-[28px] break-all max-w-full overflow-x-auto whitespace-nowrap custom-scrollbar-thin">
+              <!-- e.g. 125 * 4 + 12 -->
+            </div>
+            
+            <!-- Main Output Line -->
+            <div id="calc-display" class="text-white text-right text-4xl md:text-5xl font-bold font-mono tracking-tight mt-2 break-all max-w-full overflow-x-auto whitespace-nowrap custom-scrollbar-thin select-all">
+              0
+            </div>
+          </div>
+
+          <!-- DYNAMIC KEYPADS & INTERFACES -->
+          <div class="flex-1 flex flex-col justify-center">
+            
+            <!-- 1. STANDARD KEYPAD -->
+            <div id="keypad-standard" class="grid grid-cols-4 gap-3 h-full max-h-[480px]">
+              <!-- Row 1: Memory & Clear -->
+              <button onclick="handleMemory('MC')" class="btn-mem">MC</button>
+              <button onclick="handleMemory('MR')" class="btn-mem">MR</button>
+              <button onclick="handleMemory('M+')" class="btn-mem">M+</button>
+              <button onclick="handleMemory('M-')" class="btn-mem">M-</button>
+
+              <!-- Row 2: Clear, Backspace, Mod, Div -->
+              <button onclick="clearAll()" class="btn-danger">C</button>
+              <button onclick="backspace()" class="btn-action"><i data-lucide="delete" class="w-5 h-5 mx-auto"></i></button>
+              <button onclick="inputOperator('%')" class="btn-action">%</button>
+              <button onclick="inputOperator('/')" class="btn-operator">÷</button>
+
+              <!-- Row 3: 7, 8, 9, Mult -->
+              <button onclick="inputDigit('7')" class="btn-digit">7</button>
+              <button onclick="inputDigit('8')" class="btn-digit">8</button>
+              <button onclick="inputDigit('9')" class="btn-digit">9</button>
+              <button onclick="inputOperator('*')" class="btn-operator">×</button>
+
+              <!-- Row 4: 4, 5, 6, Sub -->
+              <button onclick="inputDigit('4')" class="btn-digit">4</button>
+              <button onclick="inputDigit('5')" class="btn-digit">5</button>
+              <button onclick="inputDigit('6')" class="btn-digit">6</button>
+              <button onclick="inputOperator('-')" class="btn-operator">−</button>
+
+              <!-- Row 5: 1, 2, 3, Add -->
+              <button onclick="inputDigit('1')" class="btn-digit">1</button>
+              <button onclick="inputDigit('2')" class="btn-digit">2</button>
+              <button onclick="inputDigit('3')" class="btn-digit">3</button>
+              <button onclick="inputOperator('+')" class="btn-operator">+</button>
+
+              <!-- Row 6: Negate, 0, Decimal, Equals -->
+              <button onclick="toggleSign()" class="btn-digit">±</button>
+              <button onclick="inputDigit('0')" class="btn-digit">0</button>
+              <button onclick="inputDecimal()" class="btn-digit">.</button>
+              <button onclick="calculateResult()" class="btn-equals col-span-1">=</button>
+            </div>
+
+            <!-- 2. SCIENTIFIC KEYPAD -->
+            <div id="keypad-scientific" class="hidden grid grid-cols-5 gap-2.5 h-full max-h-[480px]">
+              <!-- Row 1: Advanced Functions -->
+              <button onclick="inputSciFunc('sin')" class="btn-sci">sin</button>
+              <button onclick="inputSciFunc('cos')" class="btn-sci">cos</button>
+              <button onclick="inputSciFunc('tan')" class="btn-sci">tan</button>
+              <button onclick="inputSciFunc('log')" class="btn-sci">log</button>
+              <button onclick="inputSciFunc('ln')" class="btn-sci">ln</button>
+
+              <!-- Row 2: Powers & Roots -->
+              <button onclick="inputSciFunc('sqrt')" class="btn-sci">√</button>
+              <button onclick="inputOperator('^')" class="btn-sci">xʸ</button>
+              <button onclick="inputSciFunc('square')" class="btn-sci">x²</button>
+              <button onclick="inputConstant('pi')" class="btn-sci">π</button>
+              <button onclick="inputConstant('e')" class="btn-sci">e</button>
+
+              <!-- Row 3: Parentheses & Clear -->
+              <button onclick="inputDigit('(')" class="btn-sci">(</button>
+              <button onclick="inputDigit(')')" class="btn-sci">)</button>
+              <button onclick="clearAll()" class="btn-danger">C</button>
+              <button onclick="backspace()" class="btn-action"><i data-lucide="delete" class="w-4 h-4 mx-auto"></i></button>
+              <button onclick="inputOperator('/')" class="btn-operator">÷</button>
+
+              <!-- Row 4: 7, 8, 9, Mult -->
+              <button onclick="inputDigit('7')" class="btn-digit">7</button>
+              <button onclick="inputDigit('8')" class="btn-digit">8</button>
+              <button onclick="inputDigit('9')" class="btn-digit">9</button>
+              <button onclick="inputOperator('*')" class="btn-operator">×</button>
+              <button onclick="inputSciFunc('fact')" class="btn-sci">n!</button>
+
+              <!-- Row 5: 4, 5, 6, Sub -->
+              <button onclick="inputDigit('4')" class="btn-digit">4</button>
+              <button onclick="inputDigit('5')" class="btn-digit">5</button>
+              <button onclick="inputDigit('6')" class="btn-digit">6</button>
+              <button onclick="inputOperator('-')" class="btn-operator">−</button>
+              <button onclick="inputSciFunc('exp')" class="btn-sci">EXP</button>
+
+              <!-- Row 6: 1, 2, 3, Add -->
+              <button onclick="inputDigit('1')" class="btn-digit">1</button>
+              <button onclick="inputDigit('2')" class="btn-digit">2</button>
+              <button onclick="inputDigit('3')" class="btn-digit">3</button>
+              <button onclick="inputOperator('+')" class="btn-operator">+</button>
+              <button onclick="calculateResult()" class="btn-equals row-span-2 h-full flex items-center justify-center">=</button>
+
+              <!-- Row 7: Negate, 0, Decimal -->
+              <button onclick="toggleSign()" class="btn-digit">±</button>
+              <button onclick="inputDigit('0')" class="btn-digit">0</button>
+              <button onclick="inputDecimal()" class="btn-digit">.</button>
+              <button onclick="inputOperator('%')" class="btn-digit">%</button>
+            </div>
+
+            <!-- 3. PROGRAMMER KEYPAD -->
+            <div id="keypad-programmer" class="hidden flex flex-col gap-4">
+              <!-- Base Conversion Display Panel -->
+              <div class="grid grid-cols-4 gap-2 bg-slate-900/80 border border-slate-800 p-3 rounded-xl font-mono text-xs">
+                <div class="flex flex-col">
+                  <span class="text-slate-500 font-bold">HEX</span>
+                  <span id="prog-hex" class="text-indigo-400 font-semibold break-all">0</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-slate-500 font-bold">DEC</span>
+                  <span id="prog-dec" class="text-emerald-400 font-semibold break-all">0</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-slate-500 font-bold">OCT</span>
+                  <span id="prog-oct" class="text-amber-400 font-semibold break-all">0</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-slate-500 font-bold">BIN</span>
+                  <span id="prog-bin" class="text-purple-400 font-semibold break-all">0000 0000</span>
+                </div>
+              </div>
+
+              <!-- Programmer Buttons Grid -->
+              <div class="grid grid-cols-6 gap-2">
+                <!-- Row 1: Hex Letters A-F -->
+                <button onclick="inputHexLetter('A')" id="btn-hex-a" class="btn-prog-hex disabled:opacity-30" disabled>A</button>
+                <button onclick="inputHexLetter('B')" id="btn-hex-b" class="btn-prog-hex disabled:opacity-30" disabled>B</button>
+                <button onclick="inputHexLetter('C')" id="btn-hex-c" class="btn-prog-hex disabled:opacity-30" disabled>C</button>
+                <button onclick="inputHexLetter('D')" id="btn-hex-d" class="btn-prog-hex disabled:opacity-30" disabled>D</button>
+                <button onclick="inputHexLetter('E')" id="btn-hex-e" class="btn-prog-hex disabled:opacity-30" disabled>E</button>
+                <button onclick="inputHexLetter('F')" id="btn-hex-f" class="btn-prog-hex disabled:opacity-30" disabled>F</button>
+
+                <!-- Row 2: Bitwise Ops -->
+                <button onclick="inputBitwise('AND')" class="btn-sci">AND</button>
+                <button onclick="inputBitwise('OR')" class="btn-sci">OR</button>
+                <button onclick="inputBitwise('XOR')" class="btn-sci">XOR</button>
+                <button onclick="inputBitwise('NOT')" class="btn-sci">NOT</button>
+                <button onclick="inputBitwise('Lsh')" class="btn-sci">Lsh</button>
+                <button onclick="inputBitwise('Rsh')" class="btn-sci">Rsh</button>
+
+                <!-- Row 3: Standard Numbers & Actions -->
+                <button onclick="clearAll()" class="btn-danger col-span-2">C</button>
+                <button onclick="backspace()" class="btn-action col-span-2"><i data-lucide="delete" class="w-4 h-4 mx-auto"></i></button>
+                <button onclick="inputOperator('/')" class="btn-operator">÷</button>
+                <button onclick="inputOperator('*')" class="btn-operator">×</button>
+
+                <!-- Row 4: 7, 8, 9, Sub -->
+                <button onclick="inputDigit('7')" id="btn-prog-7" class="btn-digit">7</button>
+                <button onclick="inputDigit('8')" id="btn-prog-8" class="btn-digit">8</button>
+                <button onclick="inputDigit('9')" id="btn-prog-9" class="btn-digit">9</button>
+                <button onclick="inputOperator('-')" class="btn-operator col-span-2">−</button>
+                <button onclick="toggleProgrammerBase('HEX')" id="base-hex-toggle" class="btn-sci text-xs">HEX</button>
+
+                <!-- Row 5: 4, 5, 6, Add -->
+                <button onclick="inputDigit('4')" id="btn-prog-4" class="btn-digit">4</button>
+                <button onclick="inputDigit('5')" id="btn-prog-5" class="btn-digit">5</button>
+                <button onclick="inputDigit('6')" id="btn-prog-6" class="btn-digit">6</button>
+                <button onclick="inputOperator('+')" class="btn-operator col-span-2">+</button>
+                <button onclick="toggleProgrammerBase('DEC')" id="base-dec-toggle" class="btn-sci text-xs bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">DEC</button>
+
+                <!-- Row 6: 1, 2, 3, Equals -->
+                <button onclick="inputDigit('1')" id="btn-prog-1" class="btn-digit">1</button>
+                <button onclick="inputDigit('2')" id="btn-prog-2" class="btn-digit">2</button>
+                <button onclick="inputDigit('3')" id="btn-prog-3" class="btn-digit">3</button>
+                <button onclick="calculateResult()" class="btn-equals col-span-2 row-span-2 flex items-center justify-center">=</button>
+                <button onclick="toggleProgrammerBase('OCT')" id="base-oct-toggle" class="btn-sci text-xs">OCT</button>
+
+                <!-- Row 7: 0, Base Bin -->
+                <button onclick="inputDigit('0')" id="btn-prog-0" class="btn-digit col-span-3">0</button>
+                <button onclick="toggleProgrammerBase('BIN')" id="base-bin-toggle" class="btn-sci text-xs">BIN</button>
+              </div>
+            </div>
+
+            <!-- 4. FINANCIAL CALCULATOR -->
+            <div id="keypad-financial" class="hidden bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Left: Inputs -->
+                <div class="space-y-4">
+                  <div>
+                    <div class="flex justify-between mb-1">
+                      <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Loan Amount (Principal)</label>
+                      <span id="val-fin-principal" class="text-sm font-mono font-bold text-indigo-400">$100,000</span>
+                    </div>
+                    <input type="range" id="input-fin-principal" min="5000" max="1000000" step="5000" value="100000" oninput="updateFinancial()" class="w-full accent-indigo-500 bg-slate-800 rounded-lg appearance-none h-2 cursor-pointer">
+                  </div>
+
+                  <div>
+                    <div class="flex justify-between mb-1">
+                      <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Annual Interest Rate (%)</label>
+                      <span id="val-fin-rate" class="text-sm font-mono font-bold text-indigo-400">5.5%</span>
+                    </div>
+                    <input type="range" id="input-fin-rate" min="0.5" max="25" step="0.1" value="5.5" oninput="updateFinancial()" class="w-full accent-indigo-500 bg-slate-800 rounded-lg appearance-none h-2 cursor-pointer">
+                  </div>
+
+                  <div>
+                    <div class="flex justify-between mb-1">
+                      <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Loan Term (Years)</label>
+                      <span id="val-fin-term" class="text-sm font-mono font-bold text-indigo-400">15 Years</span>
+                    </div>
+                    <input type="range" id="input-fin-term" min="1" max="40" step="1" value="15" oninput="updateFinancial()" class="w-full accent-indigo-500 bg-slate-800 rounded-lg appearance-none h-2 cursor-pointer">
+                  </div>
+                </div>
+
+                <!-- Right: Results Summary -->
+                <div class="bg-slate-950/60 border border-slate-800/60 rounded-xl p-5 flex flex-col justify-between">
+                  <div>
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Estimated Monthly Payment</span>
+                    <div id="fin-monthly-payment" class="text-3xl font-bold text-emerald-400 font-mono">$817.08</div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-slate-800/80">
+                    <div>
+                      <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block">Total Payments</span>
+                      <span id="fin-total-payments" class="text-sm font-mono font-semibold text-slate-300">$147,075</span>
+                    </div>
+                    <div>
+                      <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block">Total Interest</span>
+                      <span id="fin-total-interest" class="text-sm font-mono font-semibold text-slate-300">$47,075</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Amortization Schedule Preview -->
+              <div class="pt-4 border-t border-slate-800/80">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Amortization Schedule (First 5 Years)</h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left text-xs font-mono">
+                    <thead>
+                      <tr class="text-slate-500 border-b border-slate-800">
+                        <th class="pb-2">Year</th>
+                        <th class="pb-2">Principal Paid</th>
+                        <th class="pb-2">Interest Paid</th>
+                        <th class="pb-2">Remaining Balance</th>
+                      </tr>
+                    </thead>
+                    <tbody id="fin-schedule-body" class="text-slate-300 divide-y divide-slate-800/40">
+                      <!-- Dynamic Rows -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. UNIT CONVERTER -->
+            <div id="keypad-converter" class="hidden bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 space-y-6">
+              <!-- Category Selector -->
+              <div class="grid grid-cols-4 gap-2">
+                <button onclick="switchConverterCategory('length')" id="btn-conv-length" class="btn-conv-cat active">Length</button>
+                <button onclick="switchConverterCategory('weight')" id="btn-conv-weight" class="btn-conv-cat">Weight</button>
+                <button onclick="switchConverterCategory('temp')" id="btn-conv-temp" class="btn-conv-cat">Temp</button>
+                <button onclick="switchConverterCategory('area')" id="btn-conv-area" class="btn-conv-cat">Area</button>
+              </div>
+
+              <!-- Conversion Inputs -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <!-- From Unit -->
+                <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-3">
+                  <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">From</label>
+                  <input type="number" id="converter-input-val" value="1" oninput="performConversion()" class="w-full bg-transparent text-2xl font-mono font-bold text-white focus:outline-none border-b border-slate-800 focus:border-indigo-500 pb-1">
+                  <select id="converter-from-unit" onchange="performConversion()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-indigo-500 cursor-pointer">
+                    <!-- Options populated dynamically -->
+                  </select>
+                </div>
+
+                <!-- Swap Button -->
+                <div class="flex justify-center md:col-span-2 -my-3 md:my-0">
+                  <button onclick="swapConverterUnits()" class="p-3 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:scale-115">
+                    <i data-lucide="arrow-left-right" class="w-4 h-4 rotate-90 md:rotate-0"></i>
+                  </button>
+                </div>
+
+                <!-- To Unit -->
+                <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-3">
+                  <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">To</label>
+                  <div id="converter-result-val" class="w-full text-2xl font-mono font-bold text-emerald-400 pb-1 border-b border-transparent">1000</div>
+                  <select id="converter-to-unit" onchange="performConversion()" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-indigo-500 cursor-pointer">
+                    <!-- Options populated dynamically -->
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- HISTORY & MEMORY SIDEBAR (Collapsible) -->
+        <aside id="history-panel" class="w-80 bg-slate-900/90 border-l border-slate-800 flex flex-col justify-between transition-all duration-300 z-20 absolute md:relative right-0 inset-y-0 translate-x-full md:translate-x-0 hidden">
+          <div class="p-6 flex-1 flex flex-col overflow-hidden">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="font-bold text-slate-200 flex items-center gap-2">
+                <i data-lucide="history" class="w-4 h-4 text-indigo-400"></i> History Tape
+              </h3>
+              <button onclick="clearHistory()" class="text-xs text-slate-500 hover:text-rose-400 transition-colors flex items-center gap-1">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear
+              </button>
+            </div>
+
+            <!-- History List -->
+            <div id="history-list" class="flex-1 overflow-y-auto space-y-4 pr-1 custom-scrollbar">
+              <!-- Dynamic History Items -->
+              <div class="text-center text-slate-500 text-sm py-8">
+                <i data-lucide="database" class="w-8 h-8 mx-auto mb-2 opacity-40"></i>
+                No calculations yet
+              </div>
+            </div>
+          </div>
+
+          <!-- Export / Actions -->
+          <div class="p-6 border-t border-slate-800 bg-slate-950/40 flex gap-2">
+            <button onclick="exportHistory()" class="flex-1 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 flex items-center justify-center gap-1.5 transition-colors">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i> Export CSV
+            </button>
+          </div>
+        </aside>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  
+  
+  
+<script type="text/javascript">
+/* --- Script: /data.js --- */
+/**
+ * Static Data & Configuration for Calculator Pro
+ */
+
+window.CalcData = {
+  // Unit Converter Definitions
+  converterUnits: {
+    length: [
+      { name: 'Meters (m)', value: 'm', factor: 1 },
+      { name: 'Kilometers (km)', value: 'km', factor: 1000 },
+      { name: 'Centimeters (cm)', value: 'cm', factor: 0.01 },
+      { name: 'Inches (in)', value: 'in', factor: 0.0254 },
+      { name: 'Feet (ft)', value: 'ft', factor: 0.3048 },
+      { name: 'Miles (mi)', value: 'mi', factor: 1609.34 }
+    ],
+    weight: [
+      { name: 'Kilograms (kg)', value: 'kg', factor: 1 },
+      { name: 'Grams (g)', value: 'g', factor: 0.001 },
+      { name: 'Pounds (lb)', value: 'lb', factor: 0.45359237 },
+      { name: 'Ounces (oz)', value: 'oz', factor: 0.028349523 }
+    ],
+    temp: [
+      { name: 'Celsius (°C)', value: 'C' },
+      { name: 'Fahrenheit (°F)', value: 'F' },
+      { name: 'Kelvin (K)', value: 'K' }
+    ],
+    area: [
+      { name: 'Square Meters (m²)', value: 'sqm', factor: 1 },
+      { name: 'Square Feet (ft²)', value: 'sqft', factor: 0.092903 },
+      { name: 'Acres (ac)', value: 'ac', factor: 4046.86 },
+      { name: 'Hectares (ha)', value: 'ha', factor: 10000 }
+    ]
+  },
+
+  // Premium Themes Configuration
+  themes: {
+    obsidian: {
+      name: 'Midnight Obsidian',
+      class: 'theme-obsidian'
+    },
+    cyberpunk: {
+      name: 'Cyberpunk Neon',
+      class: 'theme-cyberpunk'
+    },
+    nordic: {
+      name: 'Nordic Frost',
+      class: 'theme-nordic'
+    },
+    sunset: {
+      name: 'Sunset Rose',
+      class: 'theme-sunset'
+    },
+    emerald: {
+      name: 'Emerald Forest',
+      class: 'theme-emerald'
+    }
+  }
+};
+
+/* --- Script: /utils.js --- */
+/**
+ * Utility Functions & Web Audio Synthesizer
+ */
+
+window.CalcUtils = {
+  // Web Audio API Synthesizer for satisfying key clicks
+  audioCtx: null,
+
+  initAudio() {
+    if (!this.audioCtx) {
+      this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+  },
+
+  playClick(type) {
+    try {
+      this.initAudio();
+      if (this.audioCtx.state === 'suspended') {
+        this.audioCtx.resume();
+      }
+
+      const osc = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(this.audioCtx.destination);
+
+      if (type === 'mechanical') {
+        // Sharp mechanical click
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(120, this.audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800, this.audioCtx.currentTime + 0.02);
+        gain.gain.setValueAtTime(0.15, this.audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + 0.04);
+        osc.start();
+        osc.stop(this.audioCtx.currentTime + 0.04);
+      } else if (type === 'soft') {
+        // Soft organic pop
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, this.audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(50, this.audioCtx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.1, this.audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + 0.06);
+        osc.start();
+        osc.stop(this.audioCtx.currentTime + 0.06);
+      }
+    } catch (e) {
+      console.warn('Audio context failed to initialize or play sound:', e);
+    }
+  },
+
+  // Safe Math Evaluator (No eval, parses tokens safely)
+  evaluateExpression(expr) {
+    try {
+      // Replace visual symbols with standard JS operators
+      let sanitized = expr
+        .replace(/×/g, '*')
+        .replace(/÷/g, '/')
+        .replace(/−/g, '-')
+        .replace(/π/g, Math.PI.toString())
+        .replace(/e/g, Math.E.toString());
+
+      // Handle advanced functions
+      sanitized = sanitized.replace(/sin\(([^)]+)\)/g, (_, val) => Math.sin(this.evaluateExpression(val) * Math.PI / 180));
+      sanitized = sanitized.replace(/cos\(([^)]+)\)/g, (_, val) => Math.cos(this.evaluateExpression(val) * Math.PI / 180));
+      sanitized = sanitized.replace(/tan\(([^)]+)\)/g, (_, val) => Math.tan(this.evaluateExpression(val) * Math.PI / 180));
+      sanitized = sanitized.replace(/log\(([^)]+)\)/g, (_, val) => Math.log10(this.evaluateExpression(val)));
+      sanitized = sanitized.replace(/ln\(([^)]+)\)/g, (_, val) => Math.log(this.evaluateExpression(val)));
+      sanitized = sanitized.replace(/sqrt\(([^)]+)\)/g, (_, val) => Math.sqrt(this.evaluateExpression(val)));
+      sanitized = sanitized.replace(/fact\(([^)]+)\)/g, (_, val) => this.factorial(this.evaluateExpression(val)));
+
+      // Handle powers (e.g. 2^3)
+      while (sanitized.includes('^')) {
+        sanitized = sanitized.replace(/([\d.]+)\^([\d.]+)/, (_, base, exp) => Math.pow(Number(base), Number(exp)));
+      }
+
+      // Safe evaluation using Function constructor (sanitized input only)
+      const result = new Function(`return (${sanitized})`)();
+      if (isNaN(result) || !isFinite(result)) {
+        return 'Error';
+      }
+      return Number(result.toFixed(10)); // Avoid floating point precision issues
+    } catch (err) {
+      return 'Error';
+    }
+  },
+
+  factorial(n) {
+    if (n < 0) return NaN;
+    if (n === 0 || n === 1) return 1;
+    let result = 1;
+    for (let i = 2; i <= n; i++) result *= i;
+    return result;
+  },
+
+  // Format numbers with commas for premium look
+  formatNumber(num) {
+    if (isNaN(num) || num === null) return '0';
+    const parts = num.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
+  }
+};
+
+/* --- Script: /script.js --- */
+/**
+ * Main Application Controller & State Management
+ */
+
+// Application State
+let state = {
+  currentMode: 'standard', // standard, scientific, programmer, financial, converter
+  expression: '',
+  currentInput: '0',
+  memory: 0,
+  history: [],
+  soundEnabled: true,
+  soundType: 'mechanical', // mechanical, soft, off
+  theme: 'obsidian',
+  
+  // Programmer Mode State
+  programmerBase: 'DEC', // HEX, DEC, OCT, BIN
+  
+  // Converter Mode State
+  converterCategory: 'length',
+  converterFromUnit: 'm',
+  converterToUnit: 'km'
+};
+
+// Initialize Application
+document.addEventListener('DOMContentLoaded', () => {
+  // Load saved state if available
+  loadState();
+  
+  // Initialize Lucide Icons
+  lucide.createIcons();
+  
+  // Setup Event Listeners
+  setupKeyboardSupport();
+  
+  // Initial Render
+  updateDisplay();
+  renderHistory();
+  initConverterOptions();
+  updateFinancial();
+});
+
+// Save & Load State
+function saveState() {
+  localStorage.setItem('calc_pro_state', JSON.stringify({
+    theme: state.theme,
+    soundType: state.soundType,
+    history: state.history,
+    memory: state.memory
+  }));
+}
+
+function loadState() {
+  const saved = localStorage.getItem('calc_pro_state');
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      state.theme = parsed.theme || 'obsidian';
+      state.soundType = parsed.soundType || 'mechanical';
+      state.history = parsed.history || [];
+      state.memory = parsed.memory || 0;
+      
+      // Apply theme
+      changeTheme(state.theme);
+      document.getElementById('theme-select').value = state.theme;
+      
+      // Apply sound setting
+      setSoundType(state.soundType);
+    } catch (e) {
+      console.error('Failed to load saved state', e);
+    }
+  }
+}
+
+// Sound Feedback
+function triggerSound() {
+  if (state.soundType !== 'off') {
+    window.CalcUtils.playClick(state.soundType);
+  }
+}
+
+function setSoundType(type) {
+  state.soundType = type;
+  const btnMech = document.getElementById('sound-btn-mechanical');
+  const btnSoft = document.getElementById('sound-btn-soft');
+  const btnOff = document.getElementById('sound-btn-off');
+  const statusText = document.getElementById('sound-status-text');
+
+  // Reset classes
+  [btnMech, btnSoft, btnOff].forEach(btn => {
+    btn.className = 'text-[10px] py-1 rounded font-medium text-slate-400 hover:text-white';
+  });
+
+  if (type === 'mechanical') {
+    btnMech.className = 'text-[10px] py-1 rounded font-medium bg-indigo-600 text-white';
+    statusText.textContent = 'Mechanical';
+  } else if (type === 'soft') {
+    btnSoft.className = 'text-[10px] py-1 rounded font-medium bg-indigo-600 text-white';
+    statusText.textContent = 'Soft';
+  } else {
+    btnOff.className = 'text-[10px] py-1 rounded font-medium bg-slate-800 text-white';
+    statusText.textContent = 'Off';
+  }
+  saveState();
+}
+
+// Theme Management
+function changeTheme(themeName) {
+  // Remove all theme classes
+  document.body.classList.remove('theme-obsidian', 'theme-cyberpunk', 'theme-nordic', 'theme-sunset', 'theme-emerald');
+  
+  // Add selected theme class
+  const themeClass = window.CalcData.themes[themeName]?.class;
+  if (themeClass) {
+    document.body.classList.add(themeClass);
+  }
+  state.theme = themeName;
+  saveState();
+}
+
+// Mode Switching
+function switchMode(mode) {
+  triggerSound();
+  state.currentMode = mode;
+  
+  // Update Sidebar Active State
+  const modes = ['standard', 'scientific', 'programmer', 'financial', 'converter'];
+  modes.forEach(m => {
+    const btn = document.getElementById(`btn-mode-${m}`);
+    if (m === mode) {
+      btn.className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 bg-indigo-600/10 text-indigo-400 border border-indigo-500/20";
+    } else {
+      btn.className = "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 transition-all duration-200";
+    }
+  });
+
+  // Update Header Title
+  const titleMap = {
+    standard: { title: 'Standard Calculator', icon: 'layout-grid' },
+    scientific: { title: 'Scientific Calculator', icon: 'atom' },
+    programmer: { title: 'Programmer Mode', icon: 'binary' },
+    financial: { title: 'Financial (Loan)', icon: 'badge-dollar-sign' },
+    converter: { title: 'Unit Converter', icon: 'refresh-cw' }
+  };
+  const headerTitle = document.getElementById('current-mode-title');
+  headerTitle.innerHTML = `<i data-lucide="${titleMap[mode].icon}" class="w-5 h-5 text-indigo-400"></i> ${titleMap[mode].title}`;
+  lucide.createIcons();
+
+  // Toggle Keypad Visibility
+  document.getElementById('keypad-standard').classList.add('hidden');
+  document.getElementById('keypad-scientific').classList.add('hidden');
+  document.getElementById('keypad-programmer').classList.add('hidden');
+  document.getElementById('keypad-financial').classList.add('hidden');
+  document.getElementById('keypad-converter').classList.add('hidden');
+
+  document.getElementById(`keypad-${mode}`).classList.remove('hidden');
+
+  // Reset display values for standard/scientific/programmer
+  if (mode === 'standard' || mode === 'scientific' || mode === 'programmer') {
+    clearAll();
+  }
+
+  // Close mobile sidebar if open
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  sidebar.classList.add('-translate-x-full');
+  overlay.classList.add('hidden');
+}
+
+// Mobile Sidebar Toggle
+function toggleMobileSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (sidebar.classList.contains('-translate-x-full')) {
+    sidebar.classList.remove('-translate-x-full');
+    overlay.classList.remove('hidden');
+  } else {
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+  }
+}
+
+// Toggle History Panel
+function toggleHistoryPanel() {
+  const panel = document.getElementById('history-panel');
+  panel.classList.toggle('hidden');
+}
+
+// DISPLAY UPDATES
+function updateDisplay() {
+  const exprEl = document.getElementById('calc-expression');
+  const dispEl = document.getElementById('calc-display');
+
+  exprEl.textContent = state.expression;
+  
+  if (state.currentMode === 'programmer') {
+    updateProgrammerBases();
+  } else {
+    dispEl.textContent = window.CalcUtils.formatNumber(state.currentInput);
+  }
+
+  // Memory Indicator
+  const memInd = document.getElementById('memory-indicator');
+  const memVal = document.getElementById('memory-val');
+  if (state.memory !== 0) {
+    memInd.classList.remove('hidden');
+    memVal.textContent = window.CalcUtils.formatNumber(state.memory);
+  } else {
+    memInd.classList.add('hidden');
+  }
+}
+
+// INPUT HANDLERS
+function inputDigit(digit) {
+  triggerSound();
+  if (state.currentInput === '0' && digit !== '.') {
+    state.currentInput = digit;
+  } else {
+    state.currentInput += digit;
+  }
+  updateDisplay();
+}
+
+function inputDecimal() {
+  triggerSound();
+  if (!state.currentInput.includes('.')) {
+    state.currentInput += '.';
+  }
+  updateDisplay();
+}
+
+function inputOperator(op) {
+  triggerSound();
+  if (state.currentInput !== '') {
+    state.expression += ' ' + state.currentInput + ' ' + op;
+    state.currentInput = '0';
+  } else if (state.expression !== '') {
+    // Replace last operator
+    state.expression = state.expression.slice(0, -1) + op;
+  }
+  updateDisplay();
+}
+
+function toggleSign() {
+  triggerSound();
+  if (state.currentInput !== '0') {
+    if (state.currentInput.startsWith('-')) {
+      state.currentInput = state.currentInput.slice(1);
+    } else {
+      state.currentInput = '-' + state.currentInput;
+    }
+    updateDisplay();
+  }
+}
+
+function clearAll() {
+  triggerSound();
+  state.currentInput = '0';
+  state.expression = '';
+  updateDisplay();
+}
+
+function backspace() {
+  triggerSound();
+  if (state.currentInput.length > 1) {
+    state.currentInput = state.currentInput.slice(0, -1);
+  } else {
+    state.currentInput = '0';
+  }
+  updateDisplay();
+}
+
+// SCIENTIFIC FUNCTIONS
+function inputSciFunc(func) {
+  triggerSound();
+  if (func === 'square') {
+    state.currentInput = `(${state.currentInput})^2`;
+  } else if (func === 'fact') {
+    state.currentInput = `fact(${state.currentInput})`;
+  } else {
+    state.currentInput = `${func}(${state.currentInput})`;
+  }
+  updateDisplay();
+}
+
+function inputConstant(constName) {
+  triggerSound();
+  if (constName === 'pi') {
+    state.currentInput = 'π';
+  } else if (constName === 'e') {
+    state.currentInput = 'e';
+  }
+  updateDisplay();
+}
+
+// MEMORY FUNCTIONS
+function handleMemory(action) {
+  triggerSound();
+  const currentVal = parseFloat(state.currentInput) || 0;
+  if (action === 'MC') {
+    state.memory = 0;
+  } else if (action === 'MR') {
+    state.currentInput = state.memory.toString();
+  } else if (action === 'M+') {
+    state.memory += currentVal;
+  } else if (action === 'M-') {
+    state.memory -= currentVal;
+  }
+  updateDisplay();
+  saveState();
+}
+
+// CALCULATION ENGINE
+function calculateResult() {
+  triggerSound();
+  if (state.expression === '' && state.currentInput === '0') return;
+
+  let fullExpr = state.expression + ' ' + state.currentInput;
+  let result = window.CalcUtils.evaluateExpression(fullExpr);
+
+  // Add to history
+  if (result !== 'Error') {
+    addHistoryItem(fullExpr, result);
+  }
+
+  state.expression = '';
+  state.currentInput = result.toString();
+  updateDisplay();
+}
+
+// HISTORY MANAGEMENT
+function addHistoryItem(expr, result) {
+  state.history.unshift({
+    id: Date.now(),
+    expression: expr,
+    result: result,
+    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  });
+  
+  // Keep max 50 items
+  if (state.history.length > 50) {
+    state.history.pop();
+  }
+  
+  saveState();
+  renderHistory();
+  
+  // Show badge on history icon
+  const badge = document.getElementById('history-badge');
+  badge.classList.remove('hidden');
+}
+
+function renderHistory() {
+  const list = document.getElementById('history-list');
+  if (state.history.length === 0) {
+    list.innerHTML = `
+      <div class="text-center text-slate-500 text-sm py-8">
+        <i data-lucide="database" class="w-8 h-8 mx-auto mb-2 opacity-40"></i>
+        No calculations yet
+      </div>
+    `;
+    lucide.createIcons();
+    return;
+  }
+
+  list.innerHTML = state.history.map(item => `
+    <div class="p-3 bg-slate-950/40 border border-slate-800/60 rounded-xl hover:border-indigo-500/30 transition-all duration-200 group relative">
+      <div class="text-xs text-slate-500 mb-1 flex justify-between">
+        <span>${item.timestamp}</span>
+        <button onclick="deleteHistoryItem(${item.id})" class="opacity-0 group-hover:opacity-100 text-rose-400 hover:text-rose-300 transition-opacity">
+          <i data-lucide="x" class="w-3 h-3"></i>
+        </button>
+      </div>
+      <div class="text-xs text-slate-400 font-mono break-all mb-1 cursor-pointer" onclick="restoreExpression('${item.expression}')" title="Click to restore expression">
+        ${item.expression}
+      </div>
+      <div class="text-sm font-bold text-emerald-400 font-mono flex justify-between items-center">
+        <span class="cursor-pointer" onclick="restoreResult('${item.result}')" title="Click to restore result">= ${window.CalcUtils.formatNumber(item.result)}</span>
+        <button onclick="copyToClipboard('${item.result}')" class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-white transition-opacity" title="Copy Result">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+  
+  lucide.createIcons();
+}
+
+function restoreExpression(expr) {
+  triggerSound();
+  state.expression = expr;
+  state.currentInput = '0';
+  updateDisplay();
+}
+
+function restoreResult(res) {
+  triggerSound();
+  state.currentInput = res;
+  updateDisplay();
+}
+
+function deleteHistoryItem(id) {
+  state.history = state.history.filter(item => item.id !== id);
+  saveState();
+  renderHistory();
+}
+
+function clearHistory() {
+  state.history = [];
+  saveState();
+  renderHistory();
+  document.getElementById('history-badge').classList.add('hidden');
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    // Simple temporary visual feedback
+    alert('Copied to clipboard: ' + text);
+  });
+}
+
+function exportHistory() {
+  if (state.history.length === 0) return;
+  let csvContent = "data:text/csv;charset=utf-8,Timestamp,Expression,Result\n";
+  state.history.forEach(item => {
+    csvContent += `"${item.timestamp}","${item.expression}","${item.result}"\n`;
+  });
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "calculator_history.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+// PROGRAMMER MODE LOGIC
+function toggleProgrammerBase(base) {
+  triggerSound();
+  state.programmerBase = base;
+  
+  // Update UI active state
+  const bases = ['HEX', 'DEC', 'OCT', 'BIN'];
+  bases.forEach(b => {
+    const btn = document.getElementById(`base-${b.toLowerCase()}-toggle`);
+    if (b === base) {
+      btn.className = "btn-sci text-xs bg-indigo-600/20 text-indigo-400 border border-indigo-500/30";
+    } else {
+      btn.className = "btn-sci text-xs";
+    }
+  });
+
+  // Enable/Disable Hex Letters
+  const hexLetters = ['a', 'b', 'c', 'd', 'e', 'f'];
+  hexLetters.forEach(l => {
+    document.getElementById(`btn-hex-${l}`).disabled = (base !== 'HEX');
+  });
+
+  // Enable/Disable digits based on base
+  for (let i = 0; i <= 9; i++) {
+    const btn = document.getElementById(`btn-prog-${i}`);
+    if (btn) {
+      if (base === 'BIN' && i > 1) {
+        btn.disabled = true;
+      } else if (base === 'OCT' && i > 7) {
+        btn.disabled = true;
+      } else {
+        btn.disabled = false;
+      }
+    }
+  }
+
+  updateDisplay();
+}
+
+function inputHexLetter(letter) {
+  triggerSound();
+  if (state.currentInput === '0') {
+    state.currentInput = letter;
+  } else {
+    state.currentInput += letter;
+  }
+  updateDisplay();
+}
+
+function inputBitwise(op) {
+  triggerSound();
+  // Simple bitwise operations mapping
+  let operatorSymbol = '';
+  if (op === 'AND') operatorSymbol = '&';
+  else if (op === 'OR') operatorSymbol = '|';
+  else if (op === 'XOR') operatorSymbol = '^';
+  else if (op === 'NOT') operatorSymbol = '~';
+  else if (op === 'Lsh') operatorSymbol = '<<';
+  else if (op === 'Rsh') operatorSymbol = '>>';
+
+  if (state.currentInput !== '') {
+    state.expression += ' ' + state.currentInput + ' ' + operatorSymbol;
+    state.currentInput = '0';
+  }
+  updateDisplay();
+}
+
+function updateProgrammerBases() {
+  let val = parseInt(state.currentInput, state.programmerBase === 'HEX' ? 16 : state.programmerBase === 'OCT' ? 8 : state.programmerBase === 'BIN' ? 2 : 10) || 0;
+  
+  document.getElementById('prog-hex').textContent = val.toString(16).toUpperCase();
+  document.getElementById('prog-dec').textContent = val.toString(10);
+  document.getElementById('prog-oct').textContent = val.toString(8);
+  
+  // Format binary with spaces every 4 bits
+  let binStr = val.toString(2);
+  while (binStr.length % 4 !== 0) binStr = '0' + binStr;
+  document.getElementById('prog-bin').textContent = binStr.match(/.{1,4}/g)?.join(' ') || '0000';
+
+  // Update main display to match current base representation
+  const dispEl = document.getElementById('calc-display');
+  if (state.programmerBase === 'HEX') {
+    dispEl.textContent = state.currentInput.toUpperCase();
+  } else {
+    dispEl.textContent = state.currentInput;
+  }
+}
+
+// FINANCIAL CALCULATOR LOGIC
+function updateFinancial() {
+  const principal = parseFloat(document.getElementById('input-fin-principal').value);
+  const rate = parseFloat(document.getElementById('input-fin-rate').value);
+  const term = parseInt(document.getElementById('input-fin-term').value);
+
+  // Update labels
+  document.getElementById('val-fin-principal').textContent = '$' + window.CalcUtils.formatNumber(principal);
+  document.getElementById('val-fin-rate').textContent = rate + '%';
+  document.getElementById('val-fin-term').textContent = term + ' Years';
+
+  // Calculate Monthly Payment
+  const monthlyRate = (rate / 100) / 12;
+  const totalMonths = term * 12;
+  let monthlyPayment = 0;
+
+  if (monthlyRate === 0) {
+    monthlyPayment = principal / totalMonths;
+  } else {
+    monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+  }
+
+  const totalPayments = monthlyPayment * totalMonths;
+  const totalInterest = totalPayments - principal;
+
+  // Update Results UI
+  document.getElementById('fin-monthly-payment').textContent = '$' + window.CalcUtils.formatNumber(monthlyPayment.toFixed(2));
+  document.getElementById('fin-total-payments').textContent = '$' + window.CalcUtils.formatNumber(totalPayments.toFixed(0));
+  document.getElementById('fin-total-interest').textContent = '$' + window.CalcUtils.formatNumber(totalInterest.toFixed(0));
+
+  // Generate Amortization Schedule (First 5 Years)
+  const scheduleBody = document.getElementById('fin-schedule-body');
+  scheduleBody.innerHTML = '';
+
+  let balance = principal;
+  for (let year = 1; year <= Math.min(5, term); year++) {
+    let yearlyInterest = 0;
+    let yearlyPrincipal = 0;
+
+    for (let month = 1; month <= 12; month++) {
+      const interestPaid = balance * monthlyRate;
+      const principalPaid = monthlyPayment - interestPaid;
+      yearlyInterest += interestPaid;
+      yearlyPrincipal += principalPaid;
+      balance -= principalPaid;
+    }
+
+    const row = document.createElement('tr');
+    row.className = 'border-b border-slate-800/40';
+    row.innerHTML = `
+      <td class="py-2">Year ${year}</td>
+      <td class="py-2 text-emerald-400">+$${window.CalcUtils.formatNumber(yearlyPrincipal.toFixed(0))}</td>
+      <td class="py-2 text-rose-400">$${window.CalcUtils.formatNumber(yearlyInterest.toFixed(0))}</td>
+      <td class="py-2 text-slate-400">$${window.CalcUtils.formatNumber(Math.max(0, balance).toFixed(0))}</td>
+    `;
+    scheduleBody.appendChild(row);
+  }
+}
+
+// UNIT CONVERTER LOGIC
+function initConverterOptions() {
+  const fromSelect = document.getElementById('converter-from-unit');
+  const toSelect = document.getElementById('converter-to-unit');
+  
+  const units = window.CalcData.converterUnits[state.converterCategory];
+  
+  fromSelect.innerHTML = '';
+  toSelect.innerHTML = '';
+
+  units.forEach(unit => {
+    const opt1 = document.createElement('option');
+    opt1.value = unit.value;
+    opt1.textContent = unit.name;
+    fromSelect.appendChild(opt1);
+
+    const opt2 = document.createElement('option');
+    opt2.value = unit.value;
+    opt2.textContent = unit.name;
+    toSelect.appendChild(opt2);
+  });
+
+  // Set defaults
+  state.converterFromUnit = units[0].value;
+  state.converterToUnit = units[1]?.value || units[0].value;
+  
+  fromSelect.value = state.converterFromUnit;
+  toSelect.value = state.converterToUnit;
+
+  performConversion();
+}
+
+function switchConverterCategory(category) {
+  triggerSound();
+  state.converterCategory = category;
+  
+  // Update active category button
+  const categories = ['length', 'weight', 'temp', 'area'];
+  categories.forEach(cat => {
+    const btn = document.getElementById(`btn-conv-${cat}`);
+    if (cat === category) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  initConverterOptions();
+}
+
+function performConversion() {
+  const inputVal = parseFloat(document.getElementById('converter-input-val').value) || 0;
+  const fromUnit = document.getElementById('converter-from-unit').value;
+  const toUnit = document.getElementById('converter-to-unit').value;
+  const resultValEl = document.getElementById('converter-result-val');
+
+  if (state.converterCategory === 'temp') {
+    // Temperature conversion logic
+    let celsius = 0;
+    if (fromUnit === 'C') celsius = inputVal;
+    else if (fromUnit === 'F') celsius = (inputVal - 32) * 5 / 9;
+    else if (fromUnit === 'K') celsius = inputVal - 273.15;
+
+    let result = 0;
+    if (toUnit === 'C') result = celsius;
+    else if (toUnit === 'F') result = (celsius * 9 / 5) + 32;
+    else if (toUnit === 'K') result = celsius + 273.15;
+
+    resultValEl.textContent = result.toFixed(4).replace(/\.0+$/, '');
+  } else {
+    // Standard factor-based conversion
+    const units = window.CalcData.converterUnits[state.converterCategory];
+    const fromFactor = units.find(u => u.value === fromUnit).factor;
+    const toFactor = units.find(u => u.value === toUnit).factor;
+
+    const baseValue = inputVal * fromFactor;
+    const result = baseValue / toFactor;
+
+    resultValEl.textContent = result.toFixed(6).replace(/\.0+$/, '');
+  }
+}
+
+function swapConverterUnits() {
+  triggerSound();
+  const fromSelect = document.getElementById('converter-from-unit');
+  const toSelect = document.getElementById('converter-to-unit');
+  
+  const temp = fromSelect.value;
+  fromSelect.value = toSelect.value;
+  toSelect.value = temp;
+  
+  performConversion();
+}
+
+// KEYBOARD SUPPORT
+function setupKeyboardSupport() {
+  document.addEventListener('keydown', (e) => {
+    // Ignore keyboard shortcuts if user is typing in converter input
+    if (document.activeElement.id === 'converter-input-val') return;
+
+    const key = e.key;
+    if (/[0-9]/.test(key)) {
+      inputDigit(key);
+    } else if (key === '.') {
+      inputDecimal();
+    } else if (['+', '-', '*', '/'].includes(key)) {
+      inputOperator(key);
+    } else if (key === 'Enter' || key === '=') {
+      e.preventDefault();
+      calculateResult();
+    } else if (key === 'Backspace') {
+      backspace();
+    } else if (key === 'Escape') {
+      clearAll();
+    }
+  });
+}
+</script></body>
+</html>
